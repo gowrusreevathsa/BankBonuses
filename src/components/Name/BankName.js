@@ -36,21 +36,11 @@ function BankName() {
     // }
   }, []);
 
-  const list = () => (
-    <ul>
-      {bankList.map((bank) => {
-        console.log(bank);
-        return <li key={bank}>{bank}</li>;
-      })}
-    </ul>
-  );
-
   return (
     <>
       <span>{`Bank Name is ${bankList}`}</span>
       <ul>
         {bankList.map((bank) => {
-          console.log(bank);
           return <li key={bank}>{bank}</li>;
         })}
       </ul>
