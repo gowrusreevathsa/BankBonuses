@@ -2,11 +2,21 @@ import React from "react";
 import BonusReqList from "../BonusReqList";
 import AccountTypeList from "../AccountTypeList";
 
-function Filters() {
+function Filters(props) {
   return (
     <>
-      <BonusReqList />
-      <AccountTypeList />
+      <button onClick={props.callFunc} value="Click Me">
+        Click Me
+      </button>
+
+      <form>
+        <label>
+          <input name="checking" type="checkBox" onChange={props.callFunc} />
+          Checking
+        </label>
+      </form>
+      {/* <BonusReqList />
+      <AccountTypeList /> */}
     </>
   );
 }

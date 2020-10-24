@@ -2,11 +2,14 @@ import React from "react";
 import AccountName from "./AccountName";
 import BankName from "./BankName";
 
-function Name() {
+function Name(props) {
   return (
     <>
-      <BankName />
-      <AccountName />
+      {/* <BankName />
+      <AccountName /> */}
+
+      <span>{props.bankName}</span>
+      <span>{props.accountName}</span>
     </>
   );
 }

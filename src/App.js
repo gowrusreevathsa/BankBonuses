@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import Logo from "./components/Logo";
 import BankName from "./components/Name/BankName";
+import Filters from "./components/Filters";
+import DetailsList from "./components/DetailsList";
 
 const MasterContext = React.createContext({});
 const StateContext = React.createContext({});
@@ -12,6 +14,7 @@ function App() {
   const [MasterState, setMaster] = useState({});
   const [GeoState, setGeoState] = useState({});
   const [AccountState, setAccountState] = useState({});
+  const [VarAccState, setVarAccState] = useState({});
 
   useEffect(() => {
     fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/Master_Table", {
@@ -39,21 +42,30 @@ function App() {
       headers: {
         Authorization: "Bearer keyBvLV6H6w7aZElG",
       },
-      //   body: JSON.stringify(data),
     })
       .then((res) => {
-        // console.log(res.json());
         return res.json();
       })
       .then((res) => {
-        // let len = res["records"].length;
-        // let id;
-        // let m_table = res["records"][0]["fields"]["Master_Table"];
-        // console.log(res);
-        // setBankList(m_table);
         setGeoState(res);
       });
 
+    // fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/Account_Type_Table", {
+    //   method: "GET",
+    //   headers: {
+    //     Authorization: "Bearer keyBvLV6H6w7aZElG",
+    //   },
+    // })
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((res) => {
+    //     setAccountState(res);
+    //     setVarAccState(res);
+    //   });
+  }, []);
+
+  const changeHandle = () => {
     fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/Account_Type_Table", {
       method: "GET",
       headers: {
@@ -65,8 +77,11 @@ function App() {
       })
       .then((res) => {
         setAccountState(res);
+        // setVarAccState(res);
+        console.log("Changing State");
+        setVarAccState(AccountState["records"]["0"]["fields"]["Master_Table"]);
       });
-  }, []);
+  };
 
   return (
     <div className="App">
@@ -85,8 +100,20 @@ function App() {
         </a>
       </header>
       <div>Test</div> */}
-      <Logo value={GeoState} />
+
+      {/* <Filters callFunc={changeHandle} />
+
+      <Logo value={VarAccState} masterData={MasterState} /> */}
+
+      {/* <AccountContext.Provider value={AccountState}>
+        <Logo />
+      </AccountContext.Provider> */}
+
       {/* <BankName /> */}
+
+      {Object.keys(MasterState).length != 0 && (
+        <DetailsList data={MasterState["records"]} />
+      )}
     </div>
   );
 }
