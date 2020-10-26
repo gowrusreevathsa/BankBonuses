@@ -13,7 +13,7 @@ function DetailsList(props) {
     console.log(props["filter"]);
     console.log(data);
     filtered = data.filter((item) => {
-      return props["filter"]["0"].includes(item["id"]);
+      return props["filter"].includes(item["id"]);
     });
   }
 

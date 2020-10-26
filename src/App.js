@@ -89,8 +89,6 @@ function App() {
           // if (Filter[e]) {
           console.log("Inside IF Statement");
           data = res["records"].filter((item) => {
-            // return props["filter"].includes(item["id"]);
-            // console.log(e);
             console.log(item);
             console.log(filters.includes(item["fields"]["Account_Type_List"]));
             console.log(item["fields"]["Account_Type_List"]);
@@ -100,18 +98,17 @@ function App() {
 
           let masterList = [];
           for (let i in data) {
-            console.log(i);
-            masterList.push(data[i]["fields"]["Master_Table"]);
+            console.log(data[i]);
+            masterList = masterList.concat(data[i]["fields"]["Master_Table"]);
           }
 
-          console.log(masterList);
+          console.log("List: " + masterList);
           setFiltered(masterList);
         });
     }
   }, [Filter]);
 
   const changeHandle = (e) => {
-    // Filter[e] = !Filter[e];
     for (let i in Filter) {
       console.log("handle1: " + i + " " + Filter[i]);
     }
@@ -119,10 +116,6 @@ function App() {
       ...prev,
       [e]: !prev[[e]],
     }));
-
-    // setFilter({
-    //   Savings: true,
-    // });
 
     for (let i in Filter) {
       console.log("handle2: " + i + " " + Filter[i]);
