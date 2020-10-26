@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
-import "./App.css";
+// import "./App.css";
 import Logo from "./components/Logo";
 import BankName from "./components/Name/BankName";
 import Filters from "./components/Filters";
 import DetailsList from "./components/DetailsList";
+import SearchBar from "./components/SearchBar";
 
 const MasterContext = React.createContext({});
 const StateContext = React.createContext({});
@@ -39,19 +40,6 @@ function App() {
       })
       .then((res) => {
         setMaster(res);
-      });
-
-    fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/State_List_Table", {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer keyBvLV6H6w7aZElG",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setGeoState(res);
       });
 
     fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/Binary_List_Table", {
@@ -135,9 +123,15 @@ function App() {
     }));
   };
 
+  const changeState = (e) => {
+    console.log(e);
+  };
+
   return (
     <div className="App">
       <Filters callFunc={changeFilter} callBonus={changeBonus} />
+
+      <SearchBar changeState={changeState} />
 
       {Object.keys(MasterState).length != 0 &&
         Object.keys(BinList).length != 0 && (
