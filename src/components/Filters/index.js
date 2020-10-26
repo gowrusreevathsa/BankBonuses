@@ -1,23 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import BonusReqList from "../BonusReqList";
 import AccountTypeList from "../AccountTypeList";
+import "./style.css";
 
 function Filters(props) {
   return (
-    <>
-      <button onClick={props.callFunc} value="Click Me">
-        Click Me
-      </button>
+    <div className="sidenav">
+      <form>
+        <label>
+          <input
+            name="checking"
+            value="checking"
+            type="checkBox"
+            onChange={(e) => props.callFunc("Checking")}
+          />
+          Checking
+        </label>
+        <br />
+        <label>
+          <input
+            name="savings"
+            value="savings"
+            type="checkBox"
+            onChange={(e) => props.callFunc("Savings")}
+          />
+          Savings
+        </label>
+        <br />
+        <label>
+          <input
+            name="Checking and Savings"
+            value="Checking and Savings"
+            type="checkBox"
+            onChange={(e) => props.callFunc("Checking and Savings")}
+          />
+          Checking and Savings
+        </label>
+      </form>
 
       <form>
         <label>
-          <input name="checking" type="checkBox" onChange={props.callFunc} />
-          Checking
+          <input
+            name="direct"
+            value="direct"
+            type="checkBox"
+            onChange={(e) => props.callFunc("Direct_Deposit")}
+          />
+          Direct Deposit
+        </label>
+        <label>
+          <input
+            name="maintenance"
+            value="maintenance"
+            type="checkBox"
+            onChange={(e) => props.callFunc("Maintenance_Balance")}
+          />
+          Minimum Account Balance
         </label>
       </form>
       {/* <BonusReqList />
       <AccountTypeList /> */}
-    </>
+    </div>
   );
 }
 

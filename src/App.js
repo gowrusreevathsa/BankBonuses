@@ -15,6 +15,15 @@ function App() {
   const [GeoState, setGeoState] = useState({});
   const [AccountState, setAccountState] = useState({});
   const [VarAccState, setVarAccState] = useState({});
+  const [Filter, setFilter] = useState({
+    Savings: false,
+    Checking: false,
+    "Checking and Savings": false,
+  });
+
+  console.log("Filter: " + Filter["Savings"]);
+
+  const [Filtered, setFiltered] = useState([]);
 
   useEffect(() => {
     fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/Master_Table", {
@@ -22,18 +31,11 @@ function App() {
       headers: {
         Authorization: "Bearer keyBvLV6H6w7aZElG",
       },
-      //   body: JSON.stringify(data),
     })
       .then((res) => {
-        // console.log(res.json());
         return res.json();
       })
       .then((res) => {
-        // let len = res["records"].length;
-        // let id;
-        // let m_table = res["records"][0]["fields"]["Master_Table"];
-        // console.log(m_table);
-        // setBankList(m_table);
         setMaster(res);
       });
 
@@ -49,70 +51,90 @@ function App() {
       .then((res) => {
         setGeoState(res);
       });
-
-    // fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/Account_Type_Table", {
-    //   method: "GET",
-    //   headers: {
-    //     Authorization: "Bearer keyBvLV6H6w7aZElG",
-    //   },
-    // })
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((res) => {
-    //     setAccountState(res);
-    //     setVarAccState(res);
-    //   });
   }, []);
 
-  const changeHandle = () => {
-    fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/Account_Type_Table", {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer keyBvLV6H6w7aZElG",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setAccountState(res);
-        // setVarAccState(res);
-        console.log("Changing State");
-        setVarAccState(AccountState["records"]["0"]["fields"]["Master_Table"]);
-      });
+  useEffect(() => {
+    let data;
+    let filters = [];
+
+    for (let i in Filter) {
+      if (Filter[i]) {
+        filters.push(i);
+        console.log("Inside Loop" + i);
+      }
+    }
+
+    if (filters.length == 0) {
+      setFiltered([]);
+    } else {
+      fetch(
+        "https://api.airtable.com/v0/app6tlL8Upj425dTh/Account_Type_Table",
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer keyBvLV6H6w7aZElG",
+          },
+        }
+      )
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          // setAccountState(res);
+          console.log("Changing State");
+          console.log(res["records"]); //["0"]["fields"]["Master_Table"]);
+
+          data = res["records"];
+          // let filterList = Filter
+          // if (Filter[e]) {
+          console.log("Inside IF Statement");
+          data = res["records"].filter((item) => {
+            // return props["filter"].includes(item["id"]);
+            // console.log(e);
+            console.log(item);
+            console.log(filters.includes(item["fields"]["Account_Type_List"]));
+            console.log(item["fields"]["Account_Type_List"]);
+            return filters.includes(item["fields"]["Account_Type_List"]);
+          });
+          // }
+
+          let masterList = [];
+          for (let i in data) {
+            console.log(i);
+            masterList.push(data[i]["fields"]["Master_Table"]);
+          }
+
+          console.log(masterList);
+          setFiltered(masterList);
+        });
+    }
+  }, [Filter]);
+
+  const changeHandle = (e) => {
+    // Filter[e] = !Filter[e];
+    for (let i in Filter) {
+      console.log("handle1: " + i + " " + Filter[i]);
+    }
+    setFilter((prev) => ({
+      ...prev,
+      [e]: !prev[[e]],
+    }));
+
+    // setFilter({
+    //   Savings: true,
+    // });
+
+    for (let i in Filter) {
+      console.log("handle2: " + i + " " + Filter[i]);
+    }
   };
 
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <div>Test</div> */}
-
-      {/* <Filters callFunc={changeHandle} />
-
-      <Logo value={VarAccState} masterData={MasterState} /> */}
-
-      {/* <AccountContext.Provider value={AccountState}>
-        <Logo />
-      </AccountContext.Provider> */}
-
-      {/* <BankName /> */}
+      <Filters callFunc={changeHandle} />
 
       {Object.keys(MasterState).length != 0 && (
-        <DetailsList data={MasterState["records"]} />
+        <DetailsList data={MasterState["records"]} filter={Filtered} />
       )}
     </div>
   );
