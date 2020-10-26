@@ -21,9 +21,10 @@ function App() {
     "Checking and Savings": false,
   });
   const [Bonus, setBonus] = useState({
-    Direct: false,
-    Min: false,
+    Direct_Deposit: true,
+    Maintenance_Balance: true,
   });
+  const [BinList, setBinList] = useState({});
   const [Filtered, setFiltered] = useState([]);
 
   useEffect(() => {
@@ -51,6 +52,27 @@ function App() {
       })
       .then((res) => {
         setGeoState(res);
+      });
+
+    fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/Binary_List_Table", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer keyBvLV6H6w7aZElG",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        let result = {};
+        console.log(res["records"]);
+        for (let i in res["records"]) {
+          console.log(i);
+          result[res["records"][i]["fields"]["Binary_List"]] =
+            res["records"][i]["id"];
+        }
+
+        setBinList(result);
       });
   }, []);
 
@@ -91,37 +113,41 @@ function App() {
 
           let masterList = [];
           for (let i in data) {
-            console.log(data[i]);
             masterList = masterList.concat(data[i]["fields"]["Master_Table"]);
           }
 
-          console.log("List: " + masterList);
           setFiltered(masterList);
         });
     }
   }, [Filter]);
 
-  const changeHandle = (e) => {
-    for (let i in Filter) {
-      console.log("handle1: " + i + " " + Filter[i]);
-    }
+  const changeFilter = (e) => {
     setFilter((prev) => ({
       ...prev,
       [e]: !prev[[e]],
     }));
+  };
 
-    for (let i in Filter) {
-      console.log("handle2: " + i + " " + Filter[i]);
-    }
+  const changeBonus = (e) => {
+    setBonus((prev) => ({
+      ...prev,
+      [e]: !prev[[e]],
+    }));
   };
 
   return (
     <div className="App">
-      <Filters callFunc={changeHandle} />
+      <Filters callFunc={changeFilter} callBonus={changeBonus} />
 
-      {Object.keys(MasterState).length != 0 && (
-        <DetailsList data={MasterState["records"]} filter={Filtered} />
-      )}
+      {Object.keys(MasterState).length != 0 &&
+        Object.keys(BinList).length != 0 && (
+          <DetailsList
+            data={MasterState["records"]}
+            filter={Filtered}
+            bonus={Bonus}
+            binList={BinList}
+          />
+        )}
     </div>
   );
 }

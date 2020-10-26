@@ -17,6 +17,25 @@ function DetailsList(props) {
     });
   }
 
+  data = filtered;
+  console.log(filtered);
+
+  for (let i in props["bonus"]) {
+    console.log(i);
+    if (props["bonus"][i]) {
+      console.log("Item True: " + i);
+      filtered = data.filter((item) => {
+        return item["fields"][i] == props.binList["Yes"];
+      });
+    } else {
+      console.log("Item False: " + i);
+      filtered = data.filter((item) => {
+        return item["fields"][i] == props.binList["No"];
+      });
+    }
+    data = filtered;
+  }
+
   console.log("FILTERED");
   console.log(filtered);
 
@@ -43,7 +62,7 @@ function DetailsList(props) {
 
     return (
       <li key={bankData.id}>
-        <DisplayCard bankData={bankData} />
+        <DisplayCard bankData={bankData} bonus={props.bonus} />
       </li>
     );
   });

@@ -44,7 +44,7 @@ function Filters(props) {
             name="direct"
             value="direct"
             type="checkBox"
-            onChange={(e) => props.callFunc("Direct_Deposit")}
+            onChange={(e) => props.callBonus("Direct_Deposit")}
           />
           Direct Deposit
         </label>
@@ -53,7 +53,7 @@ function Filters(props) {
             name="maintenance"
             value="maintenance"
             type="checkBox"
-            onChange={(e) => props.callFunc("Maintenance_Balance")}
+            onChange={(e) => props.callBonus("Maintenance_Balance")}
           />
           Minimum Account Balance
         </label>
