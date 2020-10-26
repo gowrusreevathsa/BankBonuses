@@ -7,7 +7,7 @@ function DetailsList(props) {
   }
 
   let data = props["data"];
-  let filtered = data; // = props["filter"];
+  let filtered = data;
 
   if (props["filter"].length != 0) {
     console.log(props["filter"]);

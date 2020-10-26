@@ -20,9 +20,10 @@ function App() {
     Checking: false,
     "Checking and Savings": false,
   });
-
-  console.log("Filter: " + Filter["Savings"]);
-
+  const [Bonus, setBonus] = useState({
+    Direct: false,
+    Min: false,
+  });
   const [Filtered, setFiltered] = useState([]);
 
   useEffect(() => {
@@ -60,7 +61,6 @@ function App() {
     for (let i in Filter) {
       if (Filter[i]) {
         filters.push(i);
-        console.log("Inside Loop" + i);
       }
     }
 
@@ -80,13 +80,7 @@ function App() {
           return res.json();
         })
         .then((res) => {
-          // setAccountState(res);
-          console.log("Changing State");
-          console.log(res["records"]); //["0"]["fields"]["Master_Table"]);
-
           data = res["records"];
-          // let filterList = Filter
-          // if (Filter[e]) {
           console.log("Inside IF Statement");
           data = res["records"].filter((item) => {
             console.log(item);
@@ -94,7 +88,6 @@ function App() {
             console.log(item["fields"]["Account_Type_List"]);
             return filters.includes(item["fields"]["Account_Type_List"]);
           });
-          // }
 
           let masterList = [];
           for (let i in data) {
