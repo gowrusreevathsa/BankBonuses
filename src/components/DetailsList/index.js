@@ -58,6 +58,7 @@ function DetailsList(props) {
       directDepositAmount: item["fields"]["Direct_Deposit_Amount"],
       maintenanceBalanceAmt: item["fields"]["Maintenance_Balance_Amt"],
       maintenanceBalanceDays: item["fields"]["Maintenance_Balance_Days"],
+      state: item["fields"]["State_Short_Name"],
     };
 
     return (

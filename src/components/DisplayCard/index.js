@@ -96,32 +96,47 @@ function DisplayCard(props) {
 
   return (
     <>
-      {/* <Name bankName="" accountName="" /> */}
-
-      {/* <Col sm="6">
-        <Card body>
-          <CardTitle>
-            {bankName}
-            <br />
-            {accountName}
-          </CardTitle>
-        </Card>
-      </Col> */}
-
       <div className="container">
-        Bank Name: {bankName}, Account Name: {accountName}, Bonus Amount:{" "}
-        {bonusAmount}, Validity: {validity}
-        {accountClosureDate == 0 ? (
-          <span>You can close the bank account once you receive the bonus</span>
-        ) : (
-          <p>
-            {details}
-            <br />
-            {bonusAmount} will be paid in {bonusPayoutDate} days after the bonus
-            requirements are met. You must keep the bank account(s) open for
-            {accountClosureDate} days from the date of account opening.
-          </p>
-        )}
+        <div className="row">
+          <div className="col-10">
+            <div className="card">
+              <div className="container">
+                <div className="row">
+                  <div className="col-2">LOGO</div>
+
+                  <div className="col-7">
+                    <div className="row">Bank Name: {bankName}</div>
+                    <div className="row">Account Name: {accountName}</div>
+                    <div className="row">
+                      {accountClosureDate == 0 ? (
+                        <p>
+                          You can close the bank account once you receive the
+                          bonus
+                        </p>
+                      ) : (
+                        <p>
+                          {details}
+                          <br />
+                          {bonusAmount} will be paid in {bonusPayoutDate} days
+                          after the bonus requirements are met. You must keep
+                          the bank account(s) open for {accountClosureDate} days
+                          from the date of account opening.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="col-3">
+                    <div className="row">Bonus Amount: {bonusAmount}</div>
+                    {validity != null && (
+                      <div className="row">Validity: {validity}</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

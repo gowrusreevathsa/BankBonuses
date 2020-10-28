@@ -1,3 +1,12 @@
 div {
   display: inline;
 }
+/* 
+.detailsCard {
+  border: 1px solid #000;
+} */
+
+.card {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

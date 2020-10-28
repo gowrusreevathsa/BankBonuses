@@ -1,9 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BonusReqList from "../BonusReqList";
 import AccountTypeList from "../AccountTypeList";
 import "./style.css";
 
 function Filters(props) {
+  const [checkDirect, setcheckDirect] = useState(true);
+  const [checkMin, setcheckMin] = useState(true);
+
+  function test() {
+    props.callBonus("Direct_Deposit");
+  }
+
+  useEffect(() => {
+    props.callBonus("Direct_Deposit");
+  }, [checkDirect]);
+
   return (
     <div className="sidenav">
       <form>
@@ -41,19 +52,26 @@ function Filters(props) {
       <form>
         <label>
           <input
+            checked={checkDirect}
             name="direct"
             value="direct"
             type="checkBox"
-            onChange={(e) => props.callBonus("Direct_Deposit")}
+            onChange={(e) => {
+              setcheckDirect((prev) => !prev);
+            }}
           />
           Direct Deposit
         </label>
         <label>
           <input
+            checked={checkMin}
             name="maintenance"
             value="maintenance"
             type="checkBox"
-            onChange={(e) => props.callBonus("Maintenance_Balance")}
+            onChange={(e) => {
+              setcheckMin((prev) => !prev);
+              props.callBonus("Maintenance_Balance");
+            }}
           />
           Minimum Account Balance
         </label>

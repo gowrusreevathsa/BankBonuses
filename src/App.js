@@ -124,24 +124,36 @@ function App() {
   };
 
   const changeState = (e) => {
-    console.log(e);
+    // console.log(e);
   };
 
   return (
     <div className="App">
-      <Filters callFunc={changeFilter} callBonus={changeBonus} />
+      <div className="container">
+        <div className="row">
+          <div className="col-md-3">
+            <Filters callFunc={changeFilter} callBonus={changeBonus} />
+          </div>
 
-      <SearchBar changeState={changeState} />
+          <div className="col-md-9">
+            <SearchBar changeState={changeState} />
 
-      {Object.keys(MasterState).length != 0 &&
-        Object.keys(BinList).length != 0 && (
-          <DetailsList
-            data={MasterState["records"]}
-            filter={Filtered}
-            bonus={Bonus}
-            binList={BinList}
-          />
-        )}
+            <div className="container">
+              <div className="col-md-9">
+                {Object.keys(MasterState).length != 0 &&
+                  Object.keys(BinList).length != 0 && (
+                    <DetailsList
+                      data={MasterState["records"]}
+                      filter={Filtered}
+                      bonus={Bonus}
+                      binList={BinList}
+                    />
+                  )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

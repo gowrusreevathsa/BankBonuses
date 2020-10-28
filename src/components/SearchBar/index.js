@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./style.css";
+// import "./style.css";
 
 function SearchBar(props) {
   const [stateList, setStateList] = useState([]);
@@ -26,14 +26,20 @@ function SearchBar(props) {
     console.log(item);
     console.log(item["fields"]["State_Short_Name_List"]);
     return (
-      <option
+      //   <option
+      //     key={item["fields"]["State_Short_Name_List"]}
+      //     value={item["fields"]["State_Short_Name_List"]}
+      //   >
+      //     {item["fields"]["State_Full_Name_List"]}
+      //   </option>
+      <a
         key={item["fields"]["State_Short_Name_List"]}
         value={item["fields"]["State_Short_Name_List"]}
+        className="dropdown-item"
+        href="#"
       >
-        {/* <span> */}({item["fields"]["State_Short_Name_List"]}),{" "}
         {item["fields"]["State_Full_Name_List"]}
-        {/* </span> */}
-      </option>
+      </a>
     );
   });
 
@@ -41,13 +47,26 @@ function SearchBar(props) {
     <>
       <div className="center">
         <p>
-          Search Bar
-          <select onChange={(e) => props.changeState(e.target.value)}>
+          <a
+            class="btn btn-secondary dropdown-toggle"
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Pick a location{" "}
+          </a>
+          {/* <select onChange={(e) => props.changeState(e.target.value)}>
             {options}
-            {/* <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option> */}
-          </select>
+          </select> */}
+
+          <div className="dropdown">
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              {options}
+            </div>
+          </div>
         </p>
       </div>
     </>
