@@ -9,8 +9,6 @@ import SearchBar from "./components/SearchBar";
 function App() {
   const [MasterState, setMaster] = useState({});
   const [GeoState, setGeoState] = useState("");
-  const [AccountState, setAccountState] = useState({});
-  const [VarAccState, setVarAccState] = useState({});
   const [Filter, setFilter] = useState({
     Savings: false,
     Checking: false,
