@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
-import BonusReqList from "../BonusReqList";
-import AccountTypeList from "../AccountTypeList";
 import "./style.css";
 
 function Filters(props) {
   const [checkDirect, setcheckDirect] = useState(true);
   const [checkMin, setcheckMin] = useState(true);
-
-  function test() {
-    props.callBonus("Direct_Deposit");
-  }
 
   useEffect(() => {
     props.callBonus("Direct_Deposit");
@@ -58,6 +52,7 @@ function Filters(props) {
             type="checkBox"
             onChange={(e) => {
               setcheckDirect((prev) => !prev);
+              props.callBonus("Direct_Deposit");
             }}
           />
           Direct Deposit

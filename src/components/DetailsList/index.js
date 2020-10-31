@@ -18,7 +18,6 @@ function DetailsList(props) {
   }
 
   data = filtered;
-  console.log(filtered);
 
   for (let i in props["bonus"]) {
     console.log(i);
@@ -35,6 +34,8 @@ function DetailsList(props) {
     }
     data = filtered;
   }
+
+  console.log("Geo: " + props["geoState"]);
 
   console.log("FILTERED");
   console.log(filtered);
@@ -70,7 +71,7 @@ function DetailsList(props) {
 
   return (
     <>
-      <ul>{cards}</ul>
+      <ul style={{ listStyle: "none" }}>{cards}</ul>
     </>
   );
 }

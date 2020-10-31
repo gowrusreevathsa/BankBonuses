@@ -7,13 +7,9 @@ import Filters from "./components/Filters";
 import DetailsList from "./components/DetailsList";
 import SearchBar from "./components/SearchBar";
 
-const MasterContext = React.createContext({});
-const StateContext = React.createContext({});
-const AccountContext = React.createContext({});
-
 function App() {
   const [MasterState, setMaster] = useState({});
-  const [GeoState, setGeoState] = useState({});
+  const [GeoState, setGeoState] = useState("");
   const [AccountState, setAccountState] = useState({});
   const [VarAccState, setVarAccState] = useState({});
   const [Filter, setFilter] = useState({
@@ -27,6 +23,7 @@ function App() {
   });
   const [BinList, setBinList] = useState({});
   const [Filtered, setFiltered] = useState([]);
+  let filteredList = [];
 
   useEffect(() => {
     fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/Master_Table", {
@@ -105,6 +102,7 @@ function App() {
           }
 
           setFiltered(masterList);
+          filteredList = masterList;
         });
     }
   }, [Filter]);
@@ -123,19 +121,20 @@ function App() {
     }));
   };
 
-  const changeState = (e) => {
-    // console.log(e);
+  const changeState = (e, list) => {
+    // setFiltered(list);
+    filteredList = list;
   };
 
   return (
     <div className="App">
       <div className="container">
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-3 offset-1">
             <Filters callFunc={changeFilter} callBonus={changeBonus} />
           </div>
 
-          <div className="col-md-9">
+          <div className="col-md-8">
             <SearchBar changeState={changeState} />
 
             <div className="container">
@@ -144,9 +143,10 @@ function App() {
                   Object.keys(BinList).length != 0 && (
                     <DetailsList
                       data={MasterState["records"]}
-                      filter={Filtered}
+                      filter={filteredList}
                       bonus={Bonus}
                       binList={BinList}
+                      geoState={GeoState}
                     />
                   )}
               </div>

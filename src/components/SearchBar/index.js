@@ -26,48 +26,49 @@ function SearchBar(props) {
     console.log(item);
     console.log(item["fields"]["State_Short_Name_List"]);
     return (
-      //   <option
-      //     key={item["fields"]["State_Short_Name_List"]}
-      //     value={item["fields"]["State_Short_Name_List"]}
-      //   >
-      //     {item["fields"]["State_Full_Name_List"]}
-      //   </option>
-      <a
+      <option
         key={item["fields"]["State_Short_Name_List"]}
         value={item["fields"]["State_Short_Name_List"]}
-        className="dropdown-item"
-        href="#"
       >
         {item["fields"]["State_Full_Name_List"]}
-      </a>
+      </option>
     );
   });
 
+  let list = stateList.filter((item) => {
+    console.log(
+      "Initial: " + item["fields"]["State_Short_Name_List"] + " " + State
+    );
+    if (item["fields"]["State_Short_Name_List"] == State) {
+      return item["fields"]["Master_Table"];
+    }
+  });
+
+  //   props.changeState(null, list);
+
+  function changeState(e) {
+    console.log(e);
+    list = stateList.filter((item) => {
+      if (item["fields"]["State_Short_Name_List"] == e) {
+        return item["fields"]["Master_Table"];
+      }
+    });
+
+    props.changeState(e, list);
+  }
+
   return (
     <>
-      <div className="center">
-        <p>
-          <a
-            class="btn btn-secondary dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
+      <div className="container">
+        <label>
+          Pick a location{" "}
+          <select
+            className="custom-select custom-select-sm "
+            onChange={(e) => changeState(e.target.value)}
           >
-            Pick a location{" "}
-          </a>
-          {/* <select onChange={(e) => props.changeState(e.target.value)}>
             {options}
-          </select> */}
-
-          <div className="dropdown">
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              {options}
-            </div>
-          </div>
-        </p>
+          </select>
+        </label>
       </div>
     </>
   );
