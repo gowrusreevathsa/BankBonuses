@@ -1,5 +1,5 @@
 import React from "react";
-import CheckBoxList from "../CheckBoxList";
+import CheckBoxList from "../CheckBox";
 
 function BonusReqList(props) {
   return (

@@ -1,33 +1,45 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
+import CheckBox from "../CheckBox";
 
 function Filters(props) {
-  const [checkDirect, setcheckDirect] = useState(true);
-  const [checkMin, setcheckMin] = useState(true);
+  //   const [checkDirect, setcheckDirect] = useState(true);
+  //   const [checkMin, setcheckMin] = useState(true);
 
-  useEffect(() => {
-    props.callBonus("Direct_Deposit");
-  }, [checkDirect]);
+  //   useEffect(() => {
+  //     props.callBonus("Direct_Deposit");
+  //   }, [checkDirect]);
+
+  const testfunc = (e) => {
+    console.log("TEST: " + e);
+    props.accFunc(e);
+  };
 
   return (
     <div className="sidenav">
       <form>
-        <label>
-          <input
-            name="checking"
-            value="checking"
-            type="checkBox"
-            onChange={(e) => props.callFunc("Checking")}
-          />
+        <CheckBox name="Checking" value="checking" func={testfunc}>
           Checking
-        </label>
+        </CheckBox>
         <br />
-        <label>
+        <CheckBox name="Savings" value="savings" func={testfunc}>
+          Savings
+        </CheckBox>
+        <br />
+        <CheckBox
+          name="Checking and Savings"
+          value="Checking and Savings"
+          func={testfunc}
+        >
+          Checking and Savings
+        </CheckBox>
+        <br />
+        {/* <label>
           <input
             name="savings"
             value="savings"
             type="checkBox"
-            onChange={(e) => props.callFunc("Savings")}
+            // onChange={(e) => props.callFunc("Savings")}
           />
           Savings
         </label>
@@ -37,23 +49,35 @@ function Filters(props) {
             name="Checking and Savings"
             value="Checking and Savings"
             type="checkBox"
-            onChange={(e) => props.callFunc("Checking and Savings")}
+            // onChange={(e) => props.callFunc("Checking and Savings")}
           />
           Checking and Savings
-        </label>
+        </label> */}
       </form>
 
       <form>
-        <label>
+        <CheckBox name="Direct Deposit" value="Direct Deposit" func={testfunc}>
+          Direct Deposit
+        </CheckBox>
+        <br />
+        <CheckBox
+          name="Minimum Account Balance"
+          value="Minimum Account Balance"
+          func={testfunc}
+        >
+          Checking and Savings
+        </CheckBox>
+
+        {/* <label>
           <input
             checked={checkDirect}
             name="direct"
             value="direct"
             type="checkBox"
-            onChange={(e) => {
-              setcheckDirect((prev) => !prev);
-              props.callBonus("Direct_Deposit");
-            }}
+            // onChange={(e) => {
+            //   setcheckDirect((prev) => !prev);
+            //   props.callBonus("Direct_Deposit");
+            // }}
           />
           Direct Deposit
         </label>
@@ -63,16 +87,14 @@ function Filters(props) {
             name="maintenance"
             value="maintenance"
             type="checkBox"
-            onChange={(e) => {
-              setcheckMin((prev) => !prev);
-              props.callBonus("Maintenance_Balance");
-            }}
+            // onChange={(e) => {
+            //   setcheckMin((prev) => !prev);
+            //   props.callBonus("Maintenance_Balance");
+            // }}
           />
           Minimum Account Balance
-        </label>
+        </label> */}
       </form>
-      {/* <BonusReqList />
-      <AccountTypeList /> */}
     </div>
   );
 }

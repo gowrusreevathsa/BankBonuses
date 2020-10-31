@@ -54,7 +54,7 @@ function SearchBar(props) {
       }
     });
 
-    props.changeState(e, list);
+    // props.changeState(e, list);
   }
 
   return (
