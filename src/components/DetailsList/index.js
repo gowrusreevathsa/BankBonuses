@@ -16,6 +16,8 @@ const DetailsList = forwardRef((props, ref) => {
     "Checking and Savings": false,
   });
   const [FilterList, setFilterList] = useState([]);
+  const [GeoFilterList, setGeoFilterList] = useState([]);
+  const [BinList, setBinList] = useState({});
 
   useImperativeHandle(ref, () => ({
     showAlert(e) {
@@ -24,6 +26,18 @@ const DetailsList = forwardRef((props, ref) => {
         ...prev,
         [e]: !prev[[e]],
       }));
+    },
+
+    setGeo(list) {
+      if (list == null) {
+        setGeoFilterList(FilterList);
+      } else if (list.length == 0) {
+        setData(<div>Sorry, we did not find any result :(</div>);
+      } else {
+        setGeoFilterList(list[0]["fields"]["Master_Table"]);
+      }
+
+      console.log(list);
     },
   }));
 
@@ -42,6 +56,28 @@ const DetailsList = forwardRef((props, ref) => {
         console.log(res);
         setMaster(res["records"]);
         setFiltered(res["records"]);
+      });
+
+    fetch("https://api.airtable.com/v0/app6tlL8Upj425dTh/Binary_List_Table", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer keyBvLV6H6w7aZElG",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        let result = {};
+        console.log(res["records"]);
+        for (let i in res["records"]) {
+          console.log(i);
+          result[res["records"][i]["fields"]["Binary_List"]] =
+            res["records"][i]["id"];
+        }
+
+        console.log(result);
+        setBinList(result);
       });
   }, []);
 
@@ -124,7 +160,9 @@ const DetailsList = forwardRef((props, ref) => {
     }
 
     if (filters.length == 0) {
+      setFilterList([]);
       setFiltered(Master);
+      // setForceRender((prev) => !prev);
       console.log("INSIDE IF: " + Master);
     } else {
       console.log("INSIDE ELSE");
@@ -160,8 +198,22 @@ const DetailsList = forwardRef((props, ref) => {
     }
   }, [Filter, Master]);
 
+  //Geo Filter
+  // useEffect(() => {
+  //   console.log("GEO FILTER CALLED");
+
+  //   let data = Filtered.filter((item) => {
+  //     return GeoFilterList[0].includes(item["id"]);
+  //   });
+
+  //   console.log(Filtered);
+  //   console.log(data);
+  //   setFiltered(data);
+  // }, [GeoFilterList]);
+
   let cards = <div>DEFAULT</div>;
   useEffect(() => {
+    console.log("FILTERED");
     if (Filtered[0] && Object.keys(Filtered[0]).length != 0) {
       console.log(Filtered);
 
@@ -170,6 +222,13 @@ const DetailsList = forwardRef((props, ref) => {
         console.log(FilterList);
         data = Filtered.filter((item) => {
           return FilterList.includes(item["id"]);
+        });
+      }
+
+      if (GeoFilterList.length != 0) {
+        console.log(GeoFilterList);
+        data = data.filter((item) => {
+          return GeoFilterList.includes(item["id"]);
         });
       }
 
@@ -198,15 +257,24 @@ const DetailsList = forwardRef((props, ref) => {
 
         return (
           <li key={bankData.id}>
-            <DisplayCard bankData={bankData} bonus={props.bonus} />
+            <DisplayCard
+              bankData={bankData}
+              bonus={props.bonus}
+              binList={BinList}
+            />
           </li>
         );
       });
       setData(cards);
     }
-  }, [Filtered, FilterList]);
+  }, [Filtered, FilterList, GeoFilterList]);
 
-  return <>{<ul style={{ listStyle: "none" }}>{Data}</ul>}</>;
+  // console.log(cards);
+  return (
+    <>
+      <ul style={{ listStyle: "none" }}>{Data}</ul>
+    </>
+  );
 });
 
 export default DetailsList;

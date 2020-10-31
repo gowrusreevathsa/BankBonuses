@@ -106,10 +106,10 @@ function App() {
   //   }));
   // };
 
-  // const changeState = (e, list) => {
-  //   setFiltered(list);
-  //   filteredList = list;
-  // };
+  const changeState = (list) => {
+    console.log("Called Change State");
+    detailsRef.current.setGeo(list);
+  };
 
   const accType = (e) => {
     console.log("Called: " + e);
@@ -131,7 +131,7 @@ function App() {
           </div>
 
           <div className="col-md-8">
-            <SearchBar /*changeState={changeState}*/ />
+            <SearchBar changeState={changeState} />
 
             <div className="container">
               <div className="col-md-9">

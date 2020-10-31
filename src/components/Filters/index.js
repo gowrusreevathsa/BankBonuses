@@ -18,6 +18,8 @@ function Filters(props) {
   return (
     <div className="sidenav">
       <form>
+        <span className="filterTitle">ACCOUNT TYPE</span>
+        <br />
         <CheckBox name="Checking" value="checking" func={testfunc}>
           Checking
         </CheckBox>
@@ -54,8 +56,10 @@ function Filters(props) {
           Checking and Savings
         </label> */}
       </form>
-
+      <br />
+      <br />
       <form>
+        <span className="filterTitle">BONUS REQUIREMENTS</span>
         <CheckBox name="Direct Deposit" value="Direct Deposit" func={testfunc}>
           Direct Deposit
         </CheckBox>

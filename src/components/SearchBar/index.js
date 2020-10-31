@@ -35,26 +35,33 @@ function SearchBar(props) {
     );
   });
 
-  let list = stateList.filter((item) => {
-    console.log(
-      "Initial: " + item["fields"]["State_Short_Name_List"] + " " + State
-    );
-    if (item["fields"]["State_Short_Name_List"] == State) {
-      return item["fields"]["Master_Table"];
-    }
-  });
+  //   let list = stateList.filter((item) => {
+  //     console.log(
+  //       "Initial: " + item["fields"]["State_Short_Name_List"] + " " + State
+  //     );
+  //     if (item["fields"]["State_Short_Name_List"] == State) {
+  //       return item["fields"]["Master_Table"];
+  //     }
+  //   });
 
   //   props.changeState(null, list);
 
   function changeState(e) {
     console.log(e);
-    list = stateList.filter((item) => {
-      if (item["fields"]["State_Short_Name_List"] == e) {
-        return item["fields"]["Master_Table"];
-      }
-    });
+    let list;
 
-    // props.changeState(e, list);
+    if (e == "all") {
+      list = null;
+    } else {
+      list = stateList.filter((item) => {
+        if (item["fields"]["State_Short_Name_List"] == e) {
+          return item["fields"]["Master_Table"];
+        }
+      });
+    }
+
+    // console.log(list);
+    props.changeState(list);
   }
 
   return (
@@ -66,6 +73,9 @@ function SearchBar(props) {
             className="custom-select custom-select-sm "
             onChange={(e) => changeState(e.target.value)}
           >
+            <option key="all" value="all">
+              All
+            </option>
             {options}
           </select>
         </label>

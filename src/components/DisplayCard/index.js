@@ -24,7 +24,9 @@ function DisplayCard(props) {
   } = props.bankData;
 
   let details = "";
-  if (directDeposit == "Yes") {
+  //   console.log(props.binList["Yes"]);
+
+  if (directDeposit == props.binList["Yes"]) {
     if (directDepositFrequency == "Once") {
       details = `You are required to get at least one direct deposit of an amount greater\
         than ${directDepositAmount} within\
@@ -60,8 +62,8 @@ function DisplayCard(props) {
 
   details += "\n";
 
-  if (maintenanceBalance == "Yes") {
-    if (directDeposit == "Yes") {
+  if (maintenanceBalance == props.binList["Yes"]) {
+    if (directDeposit == props.binList["Yes"]) {
       if (maintenanceDepIniWindow > 0) {
         details += `You are also required to deposit ${maintenanceBalanceAmt} in new
             money within
@@ -94,6 +96,7 @@ function DisplayCard(props) {
     }
   }
 
+  console.log(directDeposit + " " + maintenanceBalance);
   return (
     <>
       <div className="container">
@@ -115,8 +118,9 @@ function DisplayCard(props) {
                         </p>
                       ) : (
                         <p>
-                          {details}
                           <br />
+                          {details}
+                          <br /> <br />
                           {bonusAmount} will be paid in {bonusPayoutDate} days
                           after the bonus requirements are met. You must keep
                           the bank account(s) open for {accountClosureDate} days
