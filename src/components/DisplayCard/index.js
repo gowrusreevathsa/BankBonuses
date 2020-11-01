@@ -29,12 +29,12 @@ function DisplayCard(props) {
   if (directDeposit == props.binList["Yes"]) {
     if (directDepositFrequency == "Once") {
       details = `You are required to get at least one direct deposit of an amount greater\
-        than ${directDepositAmount} within\
+        than $${directDepositAmount} within\
         ${directDepIniWindow} days of opening the account.`;
     } else if (directDepositFrequency == "Monthly") {
       details = `You are required to get ${directDepMinOccurence} monthly\
         direct deposits such that direct deposits in aggregate exceeds\
-         ${directDepositAmount} every month for minimum of\
+         $${directDepositAmount} every month for minimum of\
         ${directDepMinOccurence} months. The first monthly direct\
         deposit should be met within ${directDepIniWindow} days of\
         opening the account.`;
@@ -43,14 +43,14 @@ function DisplayCard(props) {
         details = `You are required to get a
             minimum of
             ${directDepMinOccurence} direct deposits such that
-            in aggregate you deposit ${directDepositAmount}. The
+            in aggregate you deposit $${directDepositAmount}. The
             first direct deposit should be
             made in ${directDepIniWindow}
             days from the account opening
             date.`;
       } else if (directDepMinOccurence == 1) {
         details = `You are required, in aggregate,
-            to get ${directDepositAmount}
+            to get $${directDepositAmount}
             in direct deposits. The first direct
             deposit should be made in
             ${directDepIniWindow}
@@ -65,7 +65,7 @@ function DisplayCard(props) {
   if (maintenanceBalance == props.binList["Yes"]) {
     if (directDeposit == props.binList["Yes"]) {
       if (maintenanceDepIniWindow > 0) {
-        details += `You are also required to deposit ${maintenanceBalanceAmt} in new
+        details += `You are also required to deposit $${maintenanceBalanceAmt} in new
             money within
             ${maintenanceDepIniWindow} days of opening the account
             and maintain the daily average
@@ -73,14 +73,14 @@ function DisplayCard(props) {
             ${maintenanceBalanceDays} days.`;
       } else if (maintenanceDepIniWindow == 0) {
         details += `You are also required to open the
-            account with a deposit of ${maintenanceBalanceAmt} in
+            account with a deposit of $${maintenanceBalanceAmt} in
             new money and maintain the daily
             average account balance for
             ${maintenanceBalanceDays} days.`;
       }
     } else {
       if (maintenanceDepIniWindow > 0) {
-        details = `You are required to deposit ${maintenanceBalanceAmt} in new
+        details = `You are required to deposit $${maintenanceBalanceAmt} in new
             money within
             ${maintenanceDepIniWindow} days of opening the account
             and maintain the daily average
@@ -88,13 +88,21 @@ function DisplayCard(props) {
             ${maintenanceBalanceDays} days.`;
       } else if (maintenanceDepIniWindow == 0) {
         details = `You are required to open the
-            account with a deposit of ${maintenanceBalanceAmt} in new
+            account with a deposit of $${maintenanceBalanceAmt} in new
             money and maintain the daily
             average account balance for
             ${maintenanceBalanceDays} days.`;
       }
     }
   }
+
+  let fullDate = new Date(validity);
+  fullDate =
+    fullDate.toLocaleString("default", { month: "long" }) +
+    " " +
+    fullDate.getDate() +
+    ", " +
+    fullDate.getFullYear();
 
   return (
     <>
@@ -104,11 +112,23 @@ function DisplayCard(props) {
             <div className="card shadow p-3 bg-white rounded">
               <div className="container">
                 <div className="row">
-                  <div className="col-2">{/* <img src={logo} /> */} LOGO</div>
+                  <div className="col-2">
+                    <img src={"./logo192.png"} height={"50px"} width={"50px"} />
+                  </div>
 
                   <div className="col-6">
-                    <div className="row">Bank Name: {bankName}</div>
-                    <div className="row">Account Name: {accountName}</div>
+                    <div className="row">
+                      <strong style={{ marginRight: "5px" }}>
+                        Bank Name:{" "}
+                      </strong>{" "}
+                      {bankName}
+                    </div>
+                    <div className="row">
+                      <strong style={{ marginRight: "5px" }}>
+                        Account Name:{" "}
+                      </strong>{" "}
+                      {accountName}
+                    </div>
                     <div className="row text-justify">
                       {accountClosureDate == 0 ? (
                         <p>
@@ -120,18 +140,23 @@ function DisplayCard(props) {
                         <p>
                           <br />
                           {details}
-                          <br /> <br />
-                          {bonusAmount} will be paid in {bonusPayoutDate} days
-                          after the bonus requirements are met. You must keep
-                          the bank account(s) open for {accountClosureDate} days
-                          from the date of account opening.
+                          <br /> <br />${bonusAmount} will be paid in{" "}
+                          {bonusPayoutDate} days after the bonus requirements
+                          are met. You must keep the bank account(s) open for{" "}
+                          {accountClosureDate} days from the date of account
+                          opening.
                         </p>
                       )}
                     </div>
                   </div>
 
                   <div className="col-3 offset-1">
-                    <div className="row">Bonus Amount: {bonusAmount}</div>
+                    <div className="row">
+                      <strong style={{ marginRight: "5px" }}>
+                        Bonus Amount:{" "}
+                      </strong>{" "}
+                      ${bonusAmount}
+                    </div>
                     <br />
                     {link ? (
                       <a href={link} class="btn btn-primary" target="_blank">
@@ -142,7 +167,14 @@ function DisplayCard(props) {
                     )}
                     <br /> <br />
                     {validity != null && (
-                      <div className="row">Validity: {validity}</div>
+                      <>
+                        <div className="row">
+                          <strong style={{ marginRight: "5px" }}>
+                            Apply before:
+                          </strong>
+                        </div>
+                        <div className="row">{fullDate}</div>
+                      </>
                     )}
                   </div>
                 </div>
