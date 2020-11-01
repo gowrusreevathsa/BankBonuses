@@ -2,7 +2,6 @@ import React from "react";
 import Name from "../Name";
 import { Col, Card, CardTitle } from "reactstrap";
 import "./styles.css";
-// import logo from "./logo.jpg";
 
 function DisplayCard(props) {
   let {
@@ -26,7 +25,6 @@ function DisplayCard(props) {
   } = props.bankData;
 
   let details = "";
-  //   console.log(props.binList["Yes"]);
 
   if (directDeposit == props.binList["Yes"]) {
     if (directDepositFrequency == "Once") {
@@ -98,7 +96,6 @@ function DisplayCard(props) {
     }
   }
 
-  console.log(directDeposit + " " + maintenanceBalance);
   return (
     <>
       <div className="container">

@@ -16,15 +16,11 @@ function SearchBar(props) {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
         setStateList(res["records"]);
       });
   }, []);
 
-  //   console.log(State);
   let options = stateList.map((item) => {
-    console.log(item);
-    console.log(item["fields"]["State_Short_Name_List"]);
     return (
       <option
         key={item["fields"]["State_Short_Name_List"]}
@@ -35,19 +31,7 @@ function SearchBar(props) {
     );
   });
 
-  //   let list = stateList.filter((item) => {
-  //     console.log(
-  //       "Initial: " + item["fields"]["State_Short_Name_List"] + " " + State
-  //     );
-  //     if (item["fields"]["State_Short_Name_List"] == State) {
-  //       return item["fields"]["Master_Table"];
-  //     }
-  //   });
-
-  //   props.changeState(null, list);
-
   function changeState(e) {
-    console.log(e);
     let list;
 
     if (e == "all") {
@@ -60,7 +44,6 @@ function SearchBar(props) {
       });
     }
 
-    // console.log(list);
     props.changeState(list);
   }
 

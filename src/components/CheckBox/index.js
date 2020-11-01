@@ -9,7 +9,6 @@ function CheckBox(props) {
           name={props.name}
           value={props.value}
           type="checkBox"
-          //   onChange={(e) => props.callFunc("Checking")}
           onChange={(e) => props.func(props.name)}
           defaultChecked={props.defaultChecked}
           className="checkbox-round"
