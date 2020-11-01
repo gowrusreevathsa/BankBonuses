@@ -44,6 +44,7 @@ function SearchBar(props) {
       });
     }
 
+    console.log(list);
     props.changeState(list);
   }
 

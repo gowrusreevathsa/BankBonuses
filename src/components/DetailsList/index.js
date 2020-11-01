@@ -35,9 +35,9 @@ const DetailsList = forwardRef((props, ref) => {
       if (list == null) {
         setGeoFilterList(FilterList);
       } else if (list.length == 0) {
-        setData(<div>Sorry, we did not find any result :(</div>);
+        setGeoFilterList(["DummyState"]);
       } else {
-        setGeoFilterList(list[0]["fields"]["Master_Table"]);
+        setGeoFilterList((prev) => list[0]["fields"]["Master_Table"]);
       }
     },
 
@@ -191,7 +191,11 @@ const DetailsList = forwardRef((props, ref) => {
           </li>
         );
       });
-      setData(cards);
+      if (cards.length != 0) {
+        setData(cards);
+      } else {
+        setData(<div>Sorry, we did not find any result :(</div>);
+      }
     }
   }, [Filtered, FilterList, GeoFilterList, BinList, BonusList]);
 
