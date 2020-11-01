@@ -10,3 +10,11 @@ div {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+.logoStyle {
+  background-size: 25px 25px;
+}
+/* 
+.logo {
+  background-image: url(./logo.jpg);
+} */

@@ -116,17 +116,26 @@ function App() {
     detailsRef.current.showAlert(e);
   };
 
+  const changeBonus = (e) => {
+    detailsRef.current.setBonus(e);
+  };
+
   const detailsRef = useRef();
 
   return (
     <div className="App">
+      <nav className="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">
+          TheBeanStalk
+        </a>
+      </nav>
+
       <div className="container">
         <div className="row">
           <div className="col-md-2">
             <Filters
-              /*callFunc={changeFilter} callBonus={changeBonus}*/ accFunc={
-                accType
-              }
+              /*callFunc={changeFilter}*/ callBonus={changeBonus}
+              accFunc={accType}
             />
           </div>
 

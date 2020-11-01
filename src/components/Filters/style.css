@@ -7,11 +7,10 @@ body {
   width: 240px;
   position: fixed;
   z-index: 1;
-  top: 0;
+  top: 50;
   left: 0;
-  background-color: #111;
   overflow-x: hidden;
-  padding-top: 20px;
+  padding-top: 50px;
 }
 
 .sidenav form {
@@ -23,7 +22,7 @@ body {
 }
 
 .sidenav label:hover {
-  color: #f1f1f1;
+  color: #333333;
   cursor: pointer;
 }
 
@@ -47,5 +46,16 @@ form input {
 }
 
 .filterTitle {
-  color: #ffffff;
+  color: #333333;
+  font-weight: 500;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  background: red;
+}
+input[type="range"]::-moz-range-thumb {
+  background: red;
+}
+input[type="range"]::-ms-thumb {
+  background: red;
 }

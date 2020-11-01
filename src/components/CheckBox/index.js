@@ -1,4 +1,5 @@
 import React from "react";
+import "./style.css";
 
 function CheckBox(props) {
   return (
@@ -10,7 +11,9 @@ function CheckBox(props) {
           type="checkBox"
           //   onChange={(e) => props.callFunc("Checking")}
           onChange={(e) => props.func(props.name)}
-        />
+          defaultChecked={props.defaultChecked}
+          className="checkbox-round"
+        />{" "}
         {props.children}
       </label>
     </>

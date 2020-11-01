@@ -15,45 +15,70 @@ function Filters(props) {
     props.accFunc(e);
   };
 
-  return (
-    <div className="sidenav">
-      <form>
-        <span className="filterTitle">ACCOUNT TYPE</span>
-        <br />
-        <CheckBox name="Checking" value="checking" func={testfunc}>
-          Checking
-        </CheckBox>
-        <br />
-        <CheckBox name="Savings" value="savings" func={testfunc}>
-          Savings
-        </CheckBox>
-        <br />
-        <CheckBox
-          name="Checking and Savings"
-          value="Checking and Savings"
-          func={testfunc}
-        >
-          Checking and Savings
-        </CheckBox>
-        <br />
-      </form>
-      <br />
-      <br />
-      <form>
-        <span className="filterTitle">BONUS REQUIREMENTS</span>
-        <CheckBox name="Direct Deposit" value="Direct Deposit" func={testfunc}>
-          Direct Deposit
-        </CheckBox>
-        <br />
-        <CheckBox
-          name="Minimum Account Balance"
-          value="Minimum Account Balance"
-          func={testfunc}
-        >
-          Checking and Savings
-        </CheckBox>
+  const bonusFunc = (e) => {
+    props.callBonus(e);
+    // console.log("RANGE: " + e.target.value);
+  };
 
-        {/* <label>
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="sidenav">
+          <form>
+            <span className="filterTitle">ACCOUNT TYPE</span>
+            <br />
+            <CheckBox name="Checking" value="checking" func={testfunc}>
+              Checking
+            </CheckBox>
+            <br />
+            <CheckBox name="Savings" value="savings" func={testfunc}>
+              Savings
+            </CheckBox>
+            <br />
+            <CheckBox
+              name="Checking and Savings"
+              value="Checking and Savings"
+              func={testfunc}
+            >
+              Checking and Savings
+            </CheckBox>
+            <br />
+          </form>
+          <br />
+          <br />
+          <form>
+            <span className="filterTitle">BONUS REQUIREMENTS</span>
+            <CheckBox
+              name="Direct_Deposit"
+              value="Direct Deposit"
+              func={bonusFunc}
+              defaultChecked="true"
+            >
+              Direct Deposit
+            </CheckBox>
+            <br />
+            <CheckBox
+              name="Maintenance_Balance"
+              value="Minimum Account Balance"
+              func={bonusFunc}
+              defaultChecked="true"
+            >
+              Minimum Account Balance
+            </CheckBox>
+            {/* 
+            <label>
+              <input
+                type="range"
+                min="0"
+                max="2"
+                defaultValue="0"
+                className="slider"
+                onChange={bonusFunc}
+              />
+              Direct Deposit
+            </label> */}
+
+            {/* <label>
           <input
             checked={checkDirect}
             name="direct"
@@ -79,7 +104,9 @@ function Filters(props) {
           />
           Minimum Account Balance
         </label> */}
-      </form>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

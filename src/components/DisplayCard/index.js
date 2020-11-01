@@ -2,6 +2,7 @@ import React from "react";
 import Name from "../Name";
 import { Col, Card, CardTitle } from "reactstrap";
 import "./styles.css";
+// import logo from "./logo.jpg";
 
 function DisplayCard(props) {
   let {
@@ -106,7 +107,7 @@ function DisplayCard(props) {
             <div className="card shadow p-3 bg-white rounded">
               <div className="container">
                 <div className="row">
-                  <div className="col-2">LOGO</div>
+                  <div className="col-2">{/* <img src={logo} /> */} LOGO</div>
 
                   <div className="col-6">
                     <div className="row">Bank Name: {bankName}</div>
@@ -135,7 +136,6 @@ function DisplayCard(props) {
                   <div className="col-3 offset-1">
                     <div className="row">Bonus Amount: {bonusAmount}</div>
                     <br />
-
                     {link ? (
                       <a href={link} class="btn btn-primary" target="_blank">
                         Apply
@@ -143,7 +143,7 @@ function DisplayCard(props) {
                     ) : (
                       <a class="btn btn-primary">Apply</a>
                     )}
-                    <br />
+                    <br /> <br />
                     {validity != null && (
                       <div className="row">Validity: {validity}</div>
                     )}

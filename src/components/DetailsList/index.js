@@ -18,6 +18,10 @@ const DetailsList = forwardRef((props, ref) => {
   const [FilterList, setFilterList] = useState([]);
   const [GeoFilterList, setGeoFilterList] = useState([]);
   const [BinList, setBinList] = useState({});
+  const [BonusList, setBonusList] = useState({
+    Direct_Deposit: true,
+    Maintenance_Balance: true,
+  });
 
   useImperativeHandle(ref, () => ({
     showAlert(e) {
@@ -38,6 +42,14 @@ const DetailsList = forwardRef((props, ref) => {
       }
 
       console.log(list);
+    },
+
+    setBonus(e) {
+      console.log("BONUS CALLED: " + e);
+      setBonusList((prev) => ({
+        ...prev,
+        [e]: !prev[[e]],
+      }));
     },
   }));
 
@@ -198,19 +210,6 @@ const DetailsList = forwardRef((props, ref) => {
     }
   }, [Filter, Master]);
 
-  //Geo Filter
-  // useEffect(() => {
-  //   console.log("GEO FILTER CALLED");
-
-  //   let data = Filtered.filter((item) => {
-  //     return GeoFilterList[0].includes(item["id"]);
-  //   });
-
-  //   console.log(Filtered);
-  //   console.log(data);
-  //   setFiltered(data);
-  // }, [GeoFilterList]);
-
   let cards = <div>DEFAULT</div>;
   useEffect(() => {
     console.log("FILTERED");
@@ -230,6 +229,24 @@ const DetailsList = forwardRef((props, ref) => {
         data = data.filter((item) => {
           return GeoFilterList.includes(item["id"]);
         });
+      }
+
+      // Bonus filter
+      let bonFilList = [];
+      for (let i in BonusList) {
+        if (BonusList[i]) {
+          bonFilList.push(i);
+        }
+      }
+      if (bonFilList.length == 0) {
+        //Do nothing
+      } else {
+        for (let i in bonFilList) {
+          data = data.filter((item) => {
+            return item["fields"][i] == BinList["Yes"];
+          });
+        }
+        console.log(data);
       }
 
       cards = data.map((item) => {
@@ -258,17 +275,13 @@ const DetailsList = forwardRef((props, ref) => {
 
         return (
           <li key={bankData.id}>
-            <DisplayCard
-              bankData={bankData}
-              bonus={props.bonus}
-              binList={BinList}
-            />
+            <DisplayCard bankData={bankData} binList={BinList} />
           </li>
         );
       });
       setData(cards);
     }
-  }, [Filtered, FilterList, GeoFilterList, BinList]);
+  }, [Filtered, FilterList, GeoFilterList, BinList, BonusList]);
 
   // console.log(cards);
   return (
