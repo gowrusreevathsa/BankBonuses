@@ -36,25 +36,6 @@ function Filters(props) {
           Checking and Savings
         </CheckBox>
         <br />
-        {/* <label>
-          <input
-            name="savings"
-            value="savings"
-            type="checkBox"
-            // onChange={(e) => props.callFunc("Savings")}
-          />
-          Savings
-        </label>
-        <br />
-        <label>
-          <input
-            name="Checking and Savings"
-            value="Checking and Savings"
-            type="checkBox"
-            // onChange={(e) => props.callFunc("Checking and Savings")}
-          />
-          Checking and Savings
-        </label> */}
       </form>
       <br />
       <br />

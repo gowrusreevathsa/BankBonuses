@@ -21,6 +21,7 @@ function DisplayCard(props) {
     maintenanceDepIniWindow,
     maintenanceBalanceAmt,
     maintenanceBalanceDays,
+    link,
   } = props.bankData;
 
   let details = "";
@@ -32,7 +33,7 @@ function DisplayCard(props) {
         than ${directDepositAmount} within\
         ${directDepIniWindow} days of opening the account.`;
     } else if (directDepositFrequency == "Monthly") {
-      details = `You are required to get (Direct_Deposit_Mimimum_Occurence) monthly\
+      details = `You are required to get ${directDepMinOccurence} monthly\
         direct deposits such that direct deposits in aggregate exceeds\
          ${directDepositAmount} every month for minimum of\
         ${directDepMinOccurence} months. The first monthly direct\
@@ -101,18 +102,19 @@ function DisplayCard(props) {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-10">
-            <div className="card">
+          <div className="col-11">
+            <div className="card shadow p-3 bg-white rounded">
               <div className="container">
                 <div className="row">
                   <div className="col-2">LOGO</div>
 
-                  <div className="col-7">
+                  <div className="col-6">
                     <div className="row">Bank Name: {bankName}</div>
                     <div className="row">Account Name: {accountName}</div>
-                    <div className="row">
+                    <div className="row text-justify">
                       {accountClosureDate == 0 ? (
                         <p>
+                          <br />
                           You can close the bank account once you receive the
                           bonus
                         </p>
@@ -130,8 +132,18 @@ function DisplayCard(props) {
                     </div>
                   </div>
 
-                  <div className="col-3">
+                  <div className="col-3 offset-1">
                     <div className="row">Bonus Amount: {bonusAmount}</div>
+                    <br />
+
+                    {link ? (
+                      <a href={link} class="btn btn-primary" target="_blank">
+                        Apply
+                      </a>
+                    ) : (
+                      <a class="btn btn-primary">Apply</a>
+                    )}
+                    <br />
                     {validity != null && (
                       <div className="row">Validity: {validity}</div>
                     )}

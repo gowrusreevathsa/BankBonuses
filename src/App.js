@@ -122,7 +122,7 @@ function App() {
     <div className="App">
       <div className="container">
         <div className="row">
-          <div className="col-md-3 offset-1">
+          <div className="col-md-2">
             <Filters
               /*callFunc={changeFilter} callBonus={changeBonus}*/ accFunc={
                 accType
@@ -130,11 +130,11 @@ function App() {
             />
           </div>
 
-          <div className="col-md-8">
+          <div className="col-md-10">
             <SearchBar changeState={changeState} />
 
             <div className="container">
-              <div className="col-md-9">
+              <div className="col-md-12">
                 {/* {Object.keys(MasterState).length != 0 &&
                   Object.keys(BinList).length != 0 && ( */}
                 <DetailsList

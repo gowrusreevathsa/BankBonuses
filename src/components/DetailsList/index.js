@@ -253,6 +253,7 @@ const DetailsList = forwardRef((props, ref) => {
           maintenanceBalanceAmt: item["fields"]["Maintenance_Balance_Amt"],
           maintenanceBalanceDays: item["fields"]["Maintenance_Balance_Days"],
           state: item["fields"]["State_Short_Name"],
+          link: item["fields"]["Link"],
         };
 
         return (
@@ -267,7 +268,7 @@ const DetailsList = forwardRef((props, ref) => {
       });
       setData(cards);
     }
-  }, [Filtered, FilterList, GeoFilterList]);
+  }, [Filtered, FilterList, GeoFilterList, BinList]);
 
   // console.log(cards);
   return (
