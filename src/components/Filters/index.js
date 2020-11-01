@@ -65,6 +65,7 @@ function Filters(props) {
             >
               Minimum Account Balance
             </CheckBox>
+
             {/* 
             <label>
               <input

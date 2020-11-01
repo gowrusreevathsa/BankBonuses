@@ -243,7 +243,7 @@ const DetailsList = forwardRef((props, ref) => {
       } else {
         for (let i in bonFilList) {
           data = data.filter((item) => {
-            return item["fields"][i] == BinList["Yes"];
+            return item["fields"][bonFilList[0]] == BinList["Yes"];
           });
         }
         console.log(data);
@@ -280,10 +280,10 @@ const DetailsList = forwardRef((props, ref) => {
         );
       });
       setData(cards);
+      console.log(cards.length);
     }
   }, [Filtered, FilterList, GeoFilterList, BinList, BonusList]);
 
-  // console.log(cards);
   return (
     <>
       <ul style={{ listStyle: "none" }}>{Data}</ul>
