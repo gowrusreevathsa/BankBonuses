@@ -131,7 +131,11 @@ function App() {
           </div>
 
           <div className="col-md-10">
-            <SearchBar changeState={changeState} />
+            <div className="col-md-12">
+              <div className="col-md-11">
+                <SearchBar changeState={changeState} />
+              </div>
+            </div>
 
             <div className="container">
               <div className="col-md-12">
